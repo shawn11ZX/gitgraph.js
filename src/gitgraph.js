@@ -1179,12 +1179,13 @@
 
     // add sequence
     this.context.fillStyle = "black";
+	this.context.font = "normal 10pt Calibri";
     if (this.sequence >= 10)
     {
-        this.context.fillText(this.sequence, this.x - 8, this.y + 5);
+        this.context.fillText(this.sequence, this.x - 7, this.y + 4);
     }
     else {
-        this.context.fillText(this.sequence, this.x - 4, this.y + 5);
+        this.context.fillText(this.sequence, this.x - 4, this.y + 4);
     }
 
     // Arrow
