@@ -121,7 +121,7 @@
       gitgraph: this
     };
     this.canvas.addEventListener("mousedown", this.mouseDownOptions, false);
-
+	this.nextSequence = 0;
     // Render on window resize
     window.onresize = this.render.bind(this);
   }
@@ -1068,6 +1068,7 @@
    *
    * @this Commit
    **/
+  
   function Commit(options) {
     // Check integrity
     if (options.parent instanceof GitGraph === false) {
@@ -1077,6 +1078,7 @@
     // Options
     options = _isObject(options) ? options : {};
     this.parent = options.parent;
+    this.sequence = ++options.parent.nextSequence;
     this.template = this.parent.template;
     this.context = this.parent.context;
     this.branch = options.branch;
@@ -1155,6 +1157,8 @@
       }
     }
 
+
+
     // Dot
     this.context.beginPath();
     this.context.arc(this.x, this.y, this.dotSize, 0, 2 * Math.PI, false);
@@ -1172,6 +1176,16 @@
 
     this.context.fill();
     this.context.closePath();
+
+    // add sequence
+    this.context.fillStyle = "black";
+    if (this.sequence >= 10)
+    {
+        this.context.fillText(this.sequence, this.x - 8, this.y + 5);
+    }
+    else {
+        this.context.fillText(this.sequence, this.x - 4, this.y + 5);
+    }
 
     // Arrow
     if (this.arrowDisplay && this.parentCommit instanceof Commit) {
